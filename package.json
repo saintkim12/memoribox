@@ -1,0 +1,35 @@
+{
+  "name": "memoribox",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "deploy": "npm run build && gh-pages -d dist",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "exif-js": "^2.3.0",
+    "firebase": "^11.1.0",
+    "uuid": "^11.0.5",
+    "vue": "^3.5.13",
+    "webpfy": "^1.0.9"
+  },
+  "devDependencies": {
+    "@types/wicg-file-system-access": "^2023.10.5",
+    "@vite-pwa/assets-generator": "^0.2.4",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "gh-pages": "^6.1.1",
+    "sass-embedded": "^1.79.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.10",
+    "vite-plugin-pwa": "^0.21.1",
+    "vue-tsc": "^2.0.16",
+    "workbox-window": "^7.1.0"
+  },
+  "overrides": {
+    "sharp": "0.32.6",
+    "sharp-ico": "0.1.5"
+  }
+}
