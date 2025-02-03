@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { Photo, usePhoto, PhotoMetadata } from '../composables/photo'
 import PhotoViewModal from './PhotoViewModal.vue'
+import useUser from '../composables/user'
 
 const photoViewModal = ref<InstanceType<typeof PhotoViewModal> | null>(null)
 const photoHandler = usePhoto()
@@ -60,12 +61,20 @@ const removeFile = async (id: number) => {
 }
 
 onMounted(async () => {
-  try {
-    await photoHandler.loadFiles()
-  } catch (e: any) {
-    console.error(e)
-    window.alert(`error on loadFiles(): ${e.message}`)
-  }
+  const user = useUser().user
+  watch(
+    () => user,
+    async ({ value }) => {
+      try {
+        if (value?.uid != null) await photoHandler.syncToServerFiles()
+        await photoHandler.loadFiles()
+      } catch (e: any) {
+        console.error(e)
+        window.alert(`error on loadFiles(): ${e.message}`)
+      }
+    },
+    { immediate: true }
+  )
   // const files = await photoHandler.loadFiles()
   // for (const photo of files) {
   //   photoList.value.push({
